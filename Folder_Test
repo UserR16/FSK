@@ -36,9 +36,9 @@ Info:AddLabel('Username : ' .. username)
 local userid = "coming soon!"
 Info:AddLabel('User ID : ' .. userid)
 local client = "coming soon!"
-Info:AddLabel('Client currently in use : ' .. client)
+Info:AddLabel('Client : ' .. client)
 local device = "coming soon!"
-Info:AddLabel('Device currently in use : ' .. device)
+Info:AddLabel('Device : ' .. device)
 
 local Anti = Tabs.Anti:AddLeftGroupbox("Anti")
 Anti:AddToggle("Anti Hallucination",{
@@ -105,10 +105,33 @@ if value == slider.Max then return 'Max Transparency' end
 if value == slider.Min then return 'None' end
 end
 Tooltip = "This is slider your body transparency."})
-Misc:AddToggle("EnabledBody",{
+Misc:AddToggle("Enabled Body",{
 Text = "Enabled",
 Default = false,
 Tooltip = "Get the installed features on."})
-
+Misc:AddDivider()
+Misc:AddSlider('Distance Bring Pizza', {
+Text = 'Distance Bring Pizza',
+Default = 5,
+Min = 5,
+Max = 50,
+Rounding = 1,
+Compact = false,
+FormatDisplayValue = function(slider, value)
+if value == slider.Max then return 'Max Distance' end
+end
+Tooltip = "This is slider adjust the distance when eating pizza."})
+Misc:AddSlider('Health (Pizza)', {
+Text = 'Health',
+Default = "1%",
+Min = "1%",
+Max = "99%",
+Rounding = 0,
+Compact = false,
+Tooltip = "This is slider your body transparency."})
+Misc:AddToggle("Pizza Bring",{
+Text = "Bring Pizza",
+Default = false,
+Tooltip = "You will bring for eat pizza."})
 
 
