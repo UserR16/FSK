@@ -26,8 +26,8 @@ local Tabs = {
   Anti = Window:AddTab('Anti'),
   Visual = Window:AddTab('Visual'),
   Auto = Window:AddTab('Auto'),
-	Generators = Window:AddTab('Generator'),
-	Settings = Window:AddTab('Setting')
+  Generators = Window:AddTab('Generator'),
+  Settings = Window:AddTab('Setting')
 }
 
 local Info = Tabs.Info:AddLeftGroupbox("Info")
@@ -85,7 +85,7 @@ Prompt:AddToggle("Instance Interact",{
 Text = "Through Interact",
 Default = false,
 Tooltip = "This is features will can press prompt noclip."})
-local Misc = Tabs.Visual:AddRighttGroupbox("Misc")
+local Misc = Tabs.Visual:AddRightGroupbox("Misc")
 Misc:AddDropdown('Material Body', {
 Values = {'Plastic','ForceField'},
 Default = 1,
@@ -100,10 +100,6 @@ Min = 0,
 Max = 1,
 Rounding = 1,
 Compact = false,
-FormatDisplayValue = function(slider, value)
-if value == slider.Max then return 'Max Transparency' end
-if value == slider.Min then return 'None' end
-end
 Tooltip = "This is slider your body transparency."})
 Misc:AddToggle("Enabled Body",{
 Text = "Enabled",
@@ -117,9 +113,6 @@ Min = 5,
 Max = 50,
 Rounding = 1,
 Compact = false,
-FormatDisplayValue = function(slider, value)
-if value == slider.Max then return 'Max Distance' end
-end
 Tooltip = "This is slider adjust the distance when eating pizza."})
 Misc:AddSlider('Health (Pizza)', {
 Text = 'Health',
@@ -133,5 +126,18 @@ Misc:AddToggle("Pizza Bring",{
 Text = "Bring Pizza",
 Default = false,
 Tooltip = "You will bring for eat pizza."})
+Misc:AddDivider()
+Misc:AddSlider('Field Of View', {
+Text = 'Field Of View',
+Default = 70,
+Min = 70,
+Max = 120,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider field of view."})
+Misc:AddToggle("Enabled FOV",{
+Text = "FOV",
+Default = false,
+Tooltip = "Get field of view."})
 
-
+Misc:AddDivider()
