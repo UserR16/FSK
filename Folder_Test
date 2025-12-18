@@ -4,14 +4,14 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 local Options = Library.Options
-local Toggles = Library.Toggleskm.
+local Toggles = Library.Toggles
 
 Library.ShowToggleFrameInKeybinds = true
 Library.ShowCustomCursor = true
 Library.NotifySide = "Right"
 
 local Window = Library:CreateWindow({
-	Title = '[v0.4] Forsaken',
+	Title = '[v0.2] Forsaken',
 	Center = true,
 	AutoShow = true,
 	Resizable = true,
@@ -34,7 +34,7 @@ local Info = Tabs.Info:AddLeftGroupbox("Info")
 local username = "coming soon!"
 Info:AddLabel('Username : ' .. username)
 local userid = "coming soon!"
-Info:AddLabel('Client currently in use : ' .. userid)
+Info:AddLabel('User ID : ' .. userid)
 local client = "coming soon!"
 Info:AddLabel('Client currently in use : ' .. client)
 local device = "coming soon!"
@@ -64,11 +64,16 @@ Tooltip = "This is features help you cant 'slowness' effect."})
 Anti:AddToggle("Anti Glitched",{
 Text = "Anti Glitched",
 Default = false,
-Tooltip = "This is features help you cant 'glitched" effect."})
+Tooltip = "This is features help you cant 'glitched' effect."})
 Anti:AddDivider()
-Anti:AddLabel("WARNING : CAN BANNED!")
+Anti:AddLabel("❕WARNING : CAN BANNED❕")
 Anti:AddToggle("Anti Stunned",{
 Text = "Anti Stunned",
 Default = false,
 Risky = true,
 Tooltip = "This is features help you cant 'stunned' effect."})
+local Anti = Tabs.Visual:AddLeftGroupbox("Prompt")
+Anti:AddToggle("Instance Interact",{
+Text = "Instance Interact",
+Default = false,
+Tooltip = "This is features will set no hold for prompt"})
