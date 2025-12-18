@@ -139,5 +139,4 @@ Misc:AddToggle("Enabled FOV",{
 Text = "FOV",
 Default = false,
 Tooltip = "Get field of view."})
-
-Misc:AddDivider()
+local Misc = Tabs.Visual:AddLeftGroupbox("Players")
