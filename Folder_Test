@@ -1,1 +1,74 @@
+local repo = 'https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/'
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
+local Options = Library.Options
+local Toggles = Library.Toggleskm.
+
+Library.ShowToggleFrameInKeybinds = true
+Library.ShowCustomCursor = true
+Library.NotifySide = "Right"
+
+local Window = Library:CreateWindow({
+	Title = '[v0.4] Forsaken',
+	Center = true,
+	AutoShow = true,
+	Resizable = true,
+	ShowCustomCursor = true,
+	NotifySide = "Right",
+	TabPadding = 8,
+	MenuFadeTime = 0
+})
+
+local Tabs = {
+  Info = Window:AddTab('Info'),
+  Anti = Window:AddTab('Anti'),
+  Visual = Window:AddTab('Visual'),
+  Auto = Window:AddTab('Auto'),
+	Generators = Window:AddTab('Generator'),
+	Settings = Window:AddTab('Setting')
+}
+
+local Info = Tabs.Info:AddLeftGroupbox("Info")
+local username = "coming soon!"
+Info:AddLabel('Username : ' .. username)
+local userid = "coming soon!"
+Info:AddLabel('Client currently in use : ' .. userid)
+local client = "coming soon!"
+Info:AddLabel('Client currently in use : ' .. client)
+local device = "coming soon!"
+Info:AddLabel('Device currently in use : ' .. device)
+
+local Anti = Tabs.Anti:AddLeftGroupbox("Anti")
+Anti:AddToggle("Anti Hallucination",{
+Text = "Anti Fake Noli",
+Default = false,
+Tooltip = "This is features remove fake noli."})
+Anti:AddToggle("Anti John Doe Trail",{
+Text = "Anti John Trail",
+Default = false,
+Tooltip = "This is features help you cant touch with 'trail' john doe."})
+Anti:AddToggle("Anti John Doe Trap",{
+Text = "Anti John Trail Trap",
+Default = false,
+Tooltip = "This is features help you cant touch with 'trap' john doe."})
+Anti:AddToggle("Anti Blinding",{
+Text = "Anti Blinding",
+Default = false,
+Tooltip = "This is features help you cant 'blinding' effect."})
+Anti:AddToggle("Anti Slowness",{
+Text = "Anti Slowness",
+Default = false,
+Tooltip = "This is features help you cant 'slowness' effect."})
+Anti:AddToggle("Anti Glitched",{
+Text = "Anti Glitched",
+Default = false,
+Tooltip = "This is features help you cant 'glitched" effect."})
+Anti:AddDivider()
+Anti:AddLabel("WARNING : CAN BANNED!")
+Anti:AddToggle("Anti Stunned",{
+Text = "Anti Stunned",
+Default = false,
+Risky = true,
+Tooltip = "This is features help you cant 'stunned' effect."})
