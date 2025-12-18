@@ -1,3 +1,4 @@
+
 local repo = 'https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/'
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
@@ -115,13 +116,13 @@ Rounding = 1,
 Compact = false,
 Tooltip = "This is slider adjust the distance when eating pizza."})
 Misc:AddSlider('Health (Pizza)', {
-Text = 'Health',
-Default = "1%",
-Min = "1%",
-Max = "99%",
-Rounding = 0,
+Text = 'Health [%]',
+Default = 1,
+Min = 1,
+Max = 99,
+Rounding = 1,
 Compact = false,
-Tooltip = "This is slider your body transparency."})
+Tooltip = "This is slider % health for eat pizza."})
 Misc:AddToggle("Pizza Bring",{
 Text = "Bring Pizza",
 Default = false,
