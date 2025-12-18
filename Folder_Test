@@ -72,8 +72,43 @@ Text = "Anti Stunned",
 Default = false,
 Risky = true,
 Tooltip = "This is features help you cant 'stunned' effect."})
-local Anti = Tabs.Visual:AddLeftGroupbox("Prompt")
-Anti:AddToggle("Instance Interact",{
+local Prompt = Tabs.Visual:AddLeftGroupbox("Prompt")
+Prompt:AddToggle("Instance Interact",{
 Text = "Instance Interact",
 Default = false,
 Tooltip = "This is features will set no hold for prompt"})
+Prompt:AddToggle("Reach Interact",{
+Text = "Reach Interact",
+Default = false,
+Tooltip = "This is features will can press prompt far."})
+Prompt:AddToggle("Instance Interact",{
+Text = "Through Interact",
+Default = false,
+Tooltip = "This is features will can press prompt noclip."})
+local Misc = Tabs.Visual:AddRighttGroupbox("Misc")
+Misc:AddDropdown('Material Body', {
+Values = {'Plastic','ForceField'},
+Default = 1,
+Multi = false,
+Text = 'Material Body',
+Tooltip = 'Material body',
+Searchable = true})
+Misc:AddSlider('Body Transparency', {
+Text = 'Body Transparency',
+Default = 0,
+Min = 0,
+Max = 1,
+Rounding = 1,
+Compact = false,
+FormatDisplayValue = function(slider, value)
+if value == slider.Max then return 'Max Transparency' end
+if value == slider.Min then return 'None' end
+end
+Tooltip = "This is slider your body transparency."})
+Misc:AddToggle("EnabledBody",{
+Text = "Enabled",
+Default = false,
+Tooltip = "Get the installed features on."})
+
+
+
