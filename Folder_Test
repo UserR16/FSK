@@ -140,4 +140,82 @@ Misc:AddToggle("Enabled FOV",{
 Text = "FOV",
 Default = false,
 Tooltip = "Get field of view."})
-local Misc = Tabs.Visual:AddLeftGroupbox("Players")
+local Players = Tabs.Visual:AddLeftGroupbox("Players")
+Players:AddSlider('Tpwalk', {
+Text = 'Tpwalk',
+Default = 0.1,
+Min = 0.1,
+Max = 5,
+Rounding = 2,
+Compact = false,
+Tooltip = "This is slider tpwalk speed."})
+Players:AddToggle("Tpwalk (Toggle)",{
+Text = "Tpwalk",
+Default = false,
+Tooltip = "Get tpwalk."})
+Players:AddLabel("-- Survivor --")
+Players:AddSlider('Max Stamina', {
+Text = 'Max Stamina',
+Default = 100,
+Min = 100,
+Max = 400,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider max stamina."})
+Players:AddSlider('Stamina Gain', {
+Text = 'Stamina Gain',
+Default = 10,
+Min = 10,
+Max = 400,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider stamina gain."})
+Players:AddSlider('Stamina Loss', {
+Text = 'Stamina Loss',
+Default = 1,
+Min = 0.1,
+Max = 1,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider stamina loss."})
+Players:AddSlider('Speed Sprint', {
+Text = 'Speed Sprint',
+Default = 24,
+Min = 28,
+Max = 28,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider sprint speed."})
+Players:AddLabel("-- Killer --")
+Players:AddSlider('Max Stamina', {
+Text = 'Max Stamina',
+Default = 110,
+Min = 110,
+Max = 400,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider max stamina."})
+Players:AddSlider('Stamina Gain', {
+Text = 'Stamina Gain',
+Default = 10,
+Min = 10,
+Max = 400,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider stamina gain."})
+Players:AddSlider('Stamina Loss', {
+Text = 'Stamina Loss',
+Default = 1,
+Min = 0.1,
+Max = 1,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider stamina loss."})
+Players:AddSlider('Speed Sprint', {
+Text = 'Speed Sprint',
+Default = 28,
+Min = 28,
+Max = 30,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider sprint speed."})
