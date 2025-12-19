@@ -219,3 +219,92 @@ Max = 30,
 Rounding = 1,
 Compact = false,
 Tooltip = "This is slider sprint speed."})
+local LocalPlayer = Tabs.Visual:AddRightGroupbox("LocalPlayer")
+LocalPlayer:AddLabel("❕WARNING : CAN BANNED❕")
+LocalPlayer:AddSlider('Spam Footstep Delay', {
+Text = 'Spam Footstep Delay',
+Default = 0.3,
+Min = 0.1,
+Max = 1,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider spam footstep delay."})
+LocalPlayer:AddSlider('Flick Delay', {
+Text = 'Flick Delay',
+Default = 0.3,
+Min = 0.1,
+Max = 1,
+Rounding = 1,
+Compact = false,
+Tooltip = "This is slider flick delay."})
+LocalPlayer:AddDivider()
+LocalPlayer:AddToggle("Invisible",{
+Text = "Invisible",
+Default = false,
+Risky = true,
+Tooltip = "Invisible."})
+LocalPlayer:AddToggle("Spam Footstep",{
+Text = "Spam Footstep",
+Default = false,
+Risky = true,
+Tooltip = "Invisible."})
+LocalPlayer:AddToggle("Flip",{
+Text = "Flip",
+Default = false,
+Risky = true,
+Tooltip = "Will create a small gui click to flip."})
+LocalPlayer:AddToggle("Fake Block",{
+Text = "Fake Block",
+Default = false,
+Risky = true,
+Tooltip = "Will create a small gui click to fake block."})
+local Aimbot = Tabs.Auto:AddLeftGroupbox("Aimbot")
+Auto:AddToggle("Aimbot Guest Charge",{
+Text = "Aimbot Guest Charge",
+Default = false,
+Tooltip = "Will always aim guest charge."})
+Auto:AddToggle("Aimbot Guest Punch",{
+Text = "Aimbot Guest Punch",
+Default = false,
+Tooltip = "Will always aim guest punch."})
+Auto:AddToggle("Aimbot Chance Shoot",{
+Text = "Aimbot Chance Shoot",
+Default = false,
+Tooltip = "Will always aim chance shoot."})
+Auto:AddToggle("Aimbot Shedletsky Slash",{
+Text = "Aimbot Shedletsky Slash",
+Default = false,
+Tooltip = "Will always aim shedletsky slash."})
+Auto:AddDivider()
+Auto:AddToggle("Aimbot Mass Infection",{
+Text = "Aimbot Mass Infection",
+Default = false,
+Tooltip = "Will always aim mass infection 1x."})
+Auto:AddToggle("Aimbot Entanglement",{
+Text = "Aimbot Entanglement",
+Default = false,
+Tooltip = "Will always aim entanglement 1x."})
+Auto:AddToggle("Aimbot Walkspeed Overidde",{
+Text = "Aimbot Walkspeed Override",
+Default = false,
+Tooltip = "Will always aim walkspeed override c00lkidd."})
+Auto:AddToggle("Aimbot Nova",{
+Text = "Aimbot Nova",
+Default = false,
+Tooltip = "Will always aim nova noli."})
+Auto:AddToggle("Aimbot Void Rush",{
+Text = "Aimbot Rush",
+Default = false,
+Tooltip = "Will always aim void rush noli."})
+Auto:AddToggle("Aimbot Demonic Pursuit",{
+Text = "Aimbot Demonic Pursuit",
+Default = false,
+Tooltip = "Will always aim demonic pursuit guest 666."})
+Auto:AddToggle("Aimbot Infernal Cry",{
+Text = "Aimbot Infernal Cry",
+Default = false,
+Tooltip = "Will always aim infernal cry guest 666."})
+Auto:AddToggle("Aimbot Corrupt Energy",{
+Text = "Aimbot Corrupt Energy",
+Default = false,
+Tooltip = "Will always aim corrupt energy john doe."})
