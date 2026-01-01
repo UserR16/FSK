@@ -40,24 +40,81 @@ local client = "coming soon!"
 Info:AddLabel('Client : ' .. client)
 local device = "coming soon!"
 Info:AddLabel('Device : ' .. device)
-
-local Anti = Tabs.Anti:AddLeftGroupbox("Anti")
+local Anti = Tabs.Anti:AddLeftGroupo("Anti")
 Anti:AddToggle("Anti Hallucination",{
 Text = "Anti Fake Noli",
 Default = false,
-Tooltip = "This is features remove fake noli."})
+Tooltip = "This is features remove fake noli.",
+Callback = function(v)
+if v and game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive:FindFirstChild("Hallucination") then
+game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive.Hallucination.Parent = workspace
+else
+if workspace:FindFirstChild("Hallucination") then
+workspace.Hallucination.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive
+end
+end})
 Anti:AddToggle("Anti John Doe Trail",{
 Text = "Anti John Trail",
 Default = false,
-Tooltip = "This is features help you cant touch with 'trail' john doe."})
+Tooltip = "This is features help you cant touch with 'trail' john doe.",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace.Players.Killers:GetDescendants()) do
+if v.Name == "Trail" then
+v.CanTouch = false
+end
+end
+AntiJohnDoeTrail = workspace.Players.Killers.DescendantAdded:Connect(function(v)
+if v.Name == "Trail" then
+v.CanTouch = false
+end
+end)
+else
+AntiJohnDoeTrail:Disconnect()
+for _,v in ipairs(workspace.Players.Killers:GetDescendants()) do
+if v.Name == "Trail" then
+v.CanTouch = true
+end
+end
+end
+end})
 Anti:AddToggle("Anti John Doe Trap",{
 Text = "Anti John Trail Trap",
 Default = false,
-Tooltip = "This is features help you cant touch with 'trap' john doe."})
+Tooltip = "This is features help you cant touch with 'trap' john doe.",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
+if v.Name == "Shadow" then
+v.CanTouch = false
+end
+end
+AntiJohnDoeTrap = workspace.Map.Ingame.DescendantAdded:Connect(function(v)
+if v.Name == "Shadow" then
+v.CanTouch = false
+end
+end)
+else
+AntiJohnDoeTrap:Disconnect()
+for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
+if v.Name == "Shadow" then
+v.CanTouch = true
+end
+end
+end
+end})
 Anti:AddToggle("Anti Blinding",{
 Text = "Anti Blinding",
 Default = false,
-Tooltip = "This is features help you cant 'blinding' effect."})
+Tooltip = "This is features help you cant 'blinding' effect.",
+Callback = function(v)
+if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Blinding") then
+game:GetService("ReplicatedStorage").Modules.StatusEffects.Blinding.Parent = workspace
+else
+if workspace:FindFirstChild("Blinding") then
+workspace.Blinding.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+end
+end})
 Anti:AddToggle("Anti Slowness",{
 Text = "Anti Slowness",
 Default = false,
