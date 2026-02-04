@@ -30,7 +30,8 @@ local Tabs = {
   Generators = Window:AddTab('Generator'),
   Settings = Window:AddTab('Setting')
 }
-
+local Folder = Instance.new("Folder", workspace)
+Folder.Name = "Script_Folder"
 local Info = Tabs.Info:AddLeftGroupbox("Info")
 local username = "coming soon!"
 Info:AddLabel('Username : ' .. username)
@@ -47,10 +48,10 @@ Default = false,
 Tooltip = "This is features remove fake noli.",
 Callback = function(v)
 if v and game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive:FindFirstChild("Hallucination") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive.Hallucination.Parent = workspace
+game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive.Hallucination.Parent = Folder
 else
-if workspace:FindFirstChild("Hallucination") then
-workspace.Hallucination.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive
+if Folder:FindFirstChild("Hallucination") then
+Folder.Hallucination.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive
 end
 end})
 Anti:AddToggle("Anti John Doe Trail",{
@@ -109,40 +110,72 @@ Default = false,
 Tooltip = "This is features help you cant 'blinding' effect.",
 Callback = function(v)
 if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Blinding") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.Blinding.Parent = workspace
+game:GetService("ReplicatedStorage").Modules.StatusEffects.Blinding.Parent = Folder
 else
-if workspace:FindFirstChild("Blinding") then
-workspace.Blinding.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+if Folder:FindFirstChild("Blinding") then
+Folder.Blinding.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
 end
 end})
 Anti:AddToggle("Anti Slowness",{
 Text = "Anti Slowness",
 Default = false,
-Tooltip = "This is features help you cant 'slowness' effect."})
+Tooltip = "This is features help you cant 'slowness' effect.",
+Callback = function(v)
+if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Slowness") then
+game:GetService("ReplicatedStorage").Modules.StatusEffects.Slowness.Parent = Folder
+else
+if Folder:FindFirstChild("Slowness") then
+Folder.Slowness.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+end
+end})
 Anti:AddToggle("Anti Glitched",{
 Text = "Anti Glitched",
 Default = false,
-Tooltip = "This is features help you cant 'glitched' effect."})
+Tooltip = "This is features help you cant 'glitched' effect.",
+Callback = function(v)
+if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Glitched") then
+game:GetService("ReplicatedStorage").Modules.StatusEffects.Glitched.Parent = Folder
+else
+if Folder:FindFirstChild("Glitched") then
+Folder.Glitched.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+end
+end})
 Anti:AddDivider()
 Anti:AddLabel("❕WARNING : CAN BANNED❕")
 Anti:AddToggle("Anti Stunned",{
 Text = "Anti Stunned",
 Default = false,
 Risky = true,
-Tooltip = "This is features help you cant 'stunned' effect."})
+Tooltip = "This is features help you cant 'stunned' effect.",
+Callback = function(v)
+if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Stunned") then
+game:GetService("ReplicatedStorage").Modules.StatusEffects.Stunned.Parent = Folder
+else
+if Folder:FindFirstChild("Stunned") then
+Folder.Stunned.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+end
+end})
 local Prompt = Tabs.Visual:AddLeftGroupbox("Prompt")
 Prompt:AddToggle("Instance Interact",{
 Text = "Instance Interact",
 Default = false,
-Tooltip = "This is features will set no hold for prompt"})
-Prompt:AddToggle("Reach Interact",{
-Text = "Reach Interact",
-Default = false,
-Tooltip = "This is features will can press prompt far."})
-Prompt:AddToggle("Instance Interact",{
-Text = "Through Interact",
-Default = false,
-Tooltip = "This is features will can press prompt noclip."})
+Tooltip = "This is features will set no hold for prompt",
+Callback = function(v)
+if v then
+for _,v in ipairs(workspace.Map:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.HoldDuration = 0
+end
+end
+InstanceInteract = workspace.Map.DescendantAdded:Connect(function(v)
+if v:IsA("ProximityPrompt") then
+v.HoldDuration = 0
+end
+end)
+else
+InstanceInteract:Disconnect()
+end
+end})
 local Misc = Tabs.Visual:AddRightGroupbox("Misc")
 Misc:AddDropdown('Material Body', {
 Values = {'Plastic','ForceField'},
