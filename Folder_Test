@@ -177,13 +177,6 @@ InstanceInteract:Disconnect()
 end
 end})
 local Misc = Tabs.Visual:AddRightGroupbox("Misc")
-Misc:AddDropdown('Material Body', {
-Values = {'Plastic','ForceField'},
-Default = 1,
-Multi = false,
-Text = 'Material Body',
-Tooltip = 'Material body',
-Searchable = true})
 Misc:AddSlider('Body Transparency', {
 Text = 'Body Transparency',
 Default = 0,
@@ -193,9 +186,25 @@ Rounding = 1,
 Compact = false,
 Tooltip = "This is slider your body transparency."})
 Misc:AddToggle("Enabled Body",{
-Text = "Enabled",
+Text = "Chams Body",
 Default = false,
-Tooltip = "Get the installed features on."})
+Tooltip = "Get the installed features on.",
+Callback = function(v)
+game.Players.PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		-- Chờ nhân vật tải xong hoàn toàn
+		task.wait(0.1)
+		
+		-- Duyệt qua tất cả các phần tử trong nhân vật
+		for _, part in pairs(character:GetChildren()) do
+			-- Kiểm tra nếu là một BasePart (khối) và KHÔNG PHẢI là HumanoidRootPart
+			if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+				part.Material = Enum.Material.ForceField
+end
+end
+end)
+end)
+end})
 Misc:AddDivider()
 Misc:AddSlider('Distance Bring Pizza', {
 Text = 'Distance Bring Pizza',
