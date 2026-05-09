@@ -1,4 +1,3 @@
-
 local repo = 'https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/'
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
@@ -12,7 +11,7 @@ Library.ShowCustomCursor = true
 Library.NotifySide = "Right"
 
 local Window = Library:CreateWindow({
-	Title = '[v0.2] Forsaken',
+	Title = 'Forsaken',
 	Center = true,
 	AutoShow = true,
 	Resizable = true,
@@ -30,17 +29,25 @@ local Tabs = {
   Generators = Window:AddTab('Generator'),
   Settings = Window:AddTab('Setting')
 }
-local Folder = Instance.new("Folder", workspace)
-Folder.Name = "Script_Folder"
+
 local Info = Tabs.Info:AddLeftGroupbox("Info")
-local username = "coming soon!"
+local username = game:GetService("Players").LocalPlayer.DisplayName
 Info:AddLabel('Username : ' .. username)
-local userid = "coming soon!"
+local userid = game:GetService("Players").LocalPlayer.UserId
 Info:AddLabel('User ID : ' .. userid)
-local client = "coming soon!"
+local client = identifyexecutor()
 Info:AddLabel('Client : ' .. client)
-local device = "coming soon!"
-Info:AddLabel('Device : ' .. device)
+local userinputservice = game:GetService("UserInputService")
+local mobile = (userinputservice:GetPlatform() == Enum.Platform.Android or userinputservice:GetPlatform() == Enum.Platform.IOS)
+Info:AddLabel('Device : ' .. if mobile then "Mobile" else "PC")
+
+local Folder = Instance.new("Folder", workspace)
+Folder.Name = "SaveFolder"
+
+local Effects = game:GetService("ReplicatedStorage"):FindFirstChild("Modules"):FindFirstChild("StatusEffects")
+local KillerEffect = Effects:FindFirstChild("KillerExclusive")
+
+
 local Anti = Tabs.Anti:AddLeftGroupo("Anti")
 Anti:AddToggle("Anti Hallucination",{
 Text = "Anti Fake Noli",
