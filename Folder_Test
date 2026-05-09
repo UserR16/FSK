@@ -46,19 +46,37 @@ Folder.Name = "SaveFolder"
 
 local Effects = game:GetService("ReplicatedStorage"):FindFirstChild("Modules"):FindFirstChild("StatusEffects")
 local KillerEffect = Effects:FindFirstChild("KillerExclusive")
-
+local SurvivorEffect = Effects:FindFirstChild("SurvivorEffect")
+local Players = workspace:FindFirstChild("Players")
+local Killers = Players:FindFirstChild("Killers")
+local Survivors = Players:FindFirstChild("Survivors")
+local Ingame = workspace:FindFirstChild("Map"):FindFirstChild("Ingame")
+local Map = Ingame:FindFirstChild("Map")
+local RunService = game:GetService("RunService")
 
 local Anti = Tabs.Anti:AddLeftGroupo("Anti")
-Anti:AddToggle("Anti Hallucination",{
+Anti:AddToggle("Anti Fake Noli",{
 Text = "Anti Fake Noli",
 Default = false,
 Tooltip = "This is features remove fake noli.",
 Callback = function(v)
-if v and game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive:FindFirstChild("Hallucination") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive.Hallucination.Parent = Folder
+if v and KillerExclusive:FindFirstChild("Hallucination") then
+KillerExclusive.Hallucination.Parent = Folder
 else
 if Folder:FindFirstChild("Hallucination") then
-Folder.Hallucination.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects.KillerExclusive
+Folder.Hallucination.Parent = KillerExclusive
+end
+end})
+Anti:AddToggle("Anti Subspaced",{
+Text = "Anti Subspaced",
+Default = false,
+Tooltip = "This is features remove subspaced effect subtripe mine.",
+Callback = function(v)
+if v and SurvivorExclusive:FindFirstChild("Subspaced") then
+SurvivorExclusive.Subspaced.Parent = Folder
+else
+if Folder:FindFirstChild("Subspaced") then
+Folder.Subspaced.Parent = SurvivorExclusive
 end
 end})
 Anti:AddToggle("Anti John Doe Trail",{
@@ -66,21 +84,21 @@ Text = "Anti John Trail",
 Default = false,
 Tooltip = "This is features help you cant touch with 'trail' john doe.",
 Callback = function(v)
-if v then
-for _,v in ipairs(workspace.Players.Killers:GetDescendants()) do
-if v.Name == "Trail" then
+if v and Killers then
+for _,v in ipairs(Killers:GetDescendants()) do
+if v.Name == "Trail" and v and v.Parent then
 v.CanTouch = false
 end
 end
-AntiJohnDoeTrail = workspace.Players.Killers.DescendantAdded:Connect(function(v)
-if v.Name == "Trail" then
+AntiJohnDoeTrail = Killers.DescendantAdded:Connect(function(v)
+if v.Name == "Trail" and v and v.Parent then
 v.CanTouch = false
 end
 end)
 else
 AntiJohnDoeTrail:Disconnect()
-for _,v in ipairs(workspace.Players.Killers:GetDescendants()) do
-if v.Name == "Trail" then
+for _,v in ipairs(Killers:GetDescendants()) do
+if v.Name == "Trail" and v and v.Parent then
 v.CanTouch = true
 end
 end
@@ -92,20 +110,20 @@ Default = false,
 Tooltip = "This is features help you cant touch with 'trap' john doe.",
 Callback = function(v)
 if v then
-for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
-if v.Name == "Shadow" then
+for _,v in ipairs(Ingame:GetDescendants()) do
+if v.Name == "Shadow" and v and v.Parent then
 v.CanTouch = false
 end
 end
-AntiJohnDoeTrap = workspace.Map.Ingame.DescendantAdded:Connect(function(v)
-if v.Name == "Shadow" then
+AntiJohnDoeTrap = Ingame.DescendantAdded:Connect(function(v)
+if v.Name == "Shadow" and v and v.Parent then
 v.CanTouch = false
 end
 end)
 else
 AntiJohnDoeTrap:Disconnect()
-for _,v in ipairs(workspace.Map.Ingame:GetDescendants()) do
-if v.Name == "Shadow" then
+for _,v in ipairs(Ingame:GetDescendants()) do
+if v.Name == "Shadow" and v and v.Parent then
 v.CanTouch = true
 end
 end
@@ -116,11 +134,11 @@ Text = "Anti Blinding",
 Default = false,
 Tooltip = "This is features help you cant 'blinding' effect.",
 Callback = function(v)
-if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Blinding") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.Blinding.Parent = Folder
+if v and Effects:FindFirstChild("Blinding") then
+Effects.Blinding.Parent = Folder
 else
 if Folder:FindFirstChild("Blinding") then
-Folder.Blinding.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+Folder.Blinding.Parent = Effects
 end
 end})
 Anti:AddToggle("Anti Slowness",{
@@ -128,11 +146,11 @@ Text = "Anti Slowness",
 Default = false,
 Tooltip = "This is features help you cant 'slowness' effect.",
 Callback = function(v)
-if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Slowness") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.Slowness.Parent = Folder
+if v and Effects:FindFirstChild("Slowness") then
+Effects.Slowness.Parent = Folder
 else
 if Folder:FindFirstChild("Slowness") then
-Folder.Slowness.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+Folder.Slowness.Parent = Effects
 end
 end})
 Anti:AddToggle("Anti Glitched",{
@@ -140,11 +158,11 @@ Text = "Anti Glitched",
 Default = false,
 Tooltip = "This is features help you cant 'glitched' effect.",
 Callback = function(v)
-if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Glitched") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.Glitched.Parent = Folder
+if v and Effects:FindFirstChild("Glitched") then
+Effects.Glitched.Parent = Folder
 else
 if Folder:FindFirstChild("Glitched") then
-Folder.Glitched.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+Folder.Glitched.Parent = Effects
 end
 end})
 Anti:AddDivider()
@@ -155,11 +173,11 @@ Default = false,
 Risky = true,
 Tooltip = "This is features help you cant 'stunned' effect.",
 Callback = function(v)
-if v and game:GetService("ReplicatedStorage").Modules.StatusEffects:FindFirstChild("Stunned") then
-game:GetService("ReplicatedStorage").Modules.StatusEffects.Stunned.Parent = Folder
+if v and Effects:FindFirstChild("Stunned") then
+Effects.Stunned.Parent = Folder
 else
 if Folder:FindFirstChild("Stunned") then
-Folder.Stunned.Parent = game:GetService("ReplicatedStorage").Modules.StatusEffects
+Folder.Stunned.Parent = Effects
 end
 end})
 local Prompt = Tabs.Visual:AddLeftGroupbox("Prompt")
@@ -175,7 +193,7 @@ v.HoldDuration = 0
 end
 end
 InstanceInteract = workspace.Map.DescendantAdded:Connect(function(v)
-if v:IsA("ProximityPrompt") then
+if v:IsA("ProximityPrompt") and v and v.Parent then
 v.HoldDuration = 0
 end
 end)
@@ -189,50 +207,69 @@ Text = 'Body Transparency',
 Default = 0,
 Min = 0,
 Max = 1,
-Rounding = 1,
+Rounding = 2,
 Compact = false,
-Tooltip = "This is slider your body transparency."})
+Tooltip = "This is slider your body transparency.",
+Callback = function(v)
+_G.BodyTransparency = v
+end})
 Misc:AddToggle("Enabled Body",{
 Text = "Chams Body",
 Default = false,
 Tooltip = "Get the installed features on.",
 Callback = function(v)
-game.Players.PlayerAdded:Connect(function(player)
-	player.CharacterAdded:Connect(function(character)
-		-- Chờ nhân vật tải xong hoàn toàn
-		task.wait(0.1)
-		
-		-- Duyệt qua tất cả các phần tử trong nhân vật
-		for _, part in pairs(character:GetChildren()) do
-			-- Kiểm tra nếu là một BasePart (khối) và KHÔNG PHẢI là HumanoidRootPart
-			if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
-				part.Material = Enum.Material.ForceField
+_G.ChamsBody = v
+RunService.RenderStepped:Connect(function()
+for _,v in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+if v:IsA("BasePart") and v and v.Parent then
+v.Material = "ForceField"
+v.Transparency = _G.BodyTransparency or 0
 end
 end
-end)
 end)
 end})
 Misc:AddDivider()
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoPizza then
+for _,v in ipairs(Ingame:GetChildren()) do
+if v.Name == "Pizza" and v and v.Parent then
+if game.Players.LocalPlayer.Character.Humanoid.Health < ((game:GetService("Players").LocalPlayer.Character.Humanoid.MaxHealth * _G.HealthEatPizza)) and (v.Position - game:FindFirstChild("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < _G.DistanceEatPizza then
+v.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+end
+end
+end
+end
+end)
+
 Misc:AddSlider('Distance Bring Pizza', {
 Text = 'Distance Bring Pizza',
-Default = 5,
-Min = 5,
+Default = 50,
+Min = 50,
 Max = 50,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider adjust the distance when eating pizza."})
+Tooltip = "This is slider adjust the distance when eating pizza.",
+Callback = function(v)
+_G.DistanceEatPizza = v
+end})
 Misc:AddSlider('Health (Pizza)', {
 Text = 'Health [%]',
-Default = 1,
-Min = 1,
+Default = 50,
+Min = 50,
 Max = 99,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider % health for eat pizza."})
-Misc:AddToggle("Pizza Bring",{
-Text = "Bring Pizza",
+Tooltip = "This is slider % health for eat pizza.",
+Callback = function(v)
+_G.HealthEatPizza = v / 100
+end})
+Misc:AddToggle("Auto Bring",{
+Text = "Auto Pizza",
 Default = false,
-Tooltip = "You will bring for eat pizza."})
+Tooltip = "You will bring for eat pizza.",
+Callback = function(v)
+_G.AutoPizza = v
+end})
 Misc:AddDivider()
 Misc:AddSlider('Field Of View', {
 Text = 'Field Of View',
@@ -241,11 +278,23 @@ Min = 70,
 Max = 120,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider field of view."})
+Tooltip = "This is slider field of view.",
+Callback = function(v)
+_G.FOV = v
+end})
 Misc:AddToggle("Enabled FOV",{
 Text = "FOV",
 Default = false,
-Tooltip = "Get field of view."})
+Tooltip = "Get field of view.",
+Callback = function(v)
+_G.FieldOfView = v
+RunService.Stepped:Connect(function()
+if _G.FieldOfView then
+local FOV = TweenService:Create(workspace.CurrentCamera, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {FieldOfView = _G.FOV})
+FOV:Play()
+end
+end)
+end})
 local Players = Tabs.Visual:AddLeftGroupbox("Players")
 Players:AddSlider('Tpwalk', {
 Text = 'Tpwalk',
@@ -254,117 +303,160 @@ Min = 0.1,
 Max = 5,
 Rounding = 2,
 Compact = false,
-Tooltip = "This is slider tpwalk speed."})
+Tooltip = "This is slider tpwalk speed.",
+Callback = function(v)
+_G.TpwalkValue = v
+end})
 Players:AddToggle("Tpwalk (Toggle)",{
 Text = "Tpwalk",
 Default = false,
-Tooltip = "Get tpwalk."})
+Tooltip = "Get tpwalk.",
+Callback = function(v)
+_G.Tpwalk = v
+while _G.Tpwalk do
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame += game.Players.LocalPlayer.Character.Humanoid.MoveDirection * _G.TpwalkValue
+game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = true
+wait()
+end
+end})
+local StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
 Players:AddLabel("-- Survivor --")
+game:GetService("RunService").RenderStepped:Connect(function()
+for _,v in ipairs(Survivors:GetChildren()) do
+if v.Parent.Name == "Survivors" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+StaminaScript.MaxStamina = _G.MaxStaminaS or 100
+StaminaScript.StaminaGain = _G.StaminaGainS or 30
+StaminaScript.StaminaLoss = _G.StaminaLossS or 10
+StaminaScript.SprintSpeed = StaminaScript.SprintSpeed + _G.SpeedSprintS
+elseif v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+StaminaScript.MaxStamina = _G.MaxStaminaK or 110
+StaminaScript.StaminaGain = _G.StaminaGainK or 30
+StaminaScript.StaminaLoss = _G.StaminaLossK or 10
+StaminaScript.SprintSpeed = StaminaScript.SprintSpeed + _G.SpeedSprintK
+end
+end
+end)
 Players:AddSlider('Max Stamina', {
 Text = 'Max Stamina',
 Default = 100,
 Min = 100,
-Max = 400,
+Max = 777,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider max stamina."})
+Tooltip = "This is slider max stamina.",
+Callback = function(v)
+_G.MaxStaminaS = v
+end})
 Players:AddSlider('Stamina Gain', {
 Text = 'Stamina Gain',
-Default = 10,
-Min = 10,
-Max = 400,
+Default = 30,
+Min = 30,
+Max = 777,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider stamina gain."})
+Tooltip = "This is slider stamina gain.",
+Callback = function(v)
+_G.StaminaGainS = v
+end})
 Players:AddSlider('Stamina Loss', {
 Text = 'Stamina Loss',
-Default = 1,
-Min = 0.1,
-Max = 1,
+Default = 10,
+Min = 0,
+Max = 10,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider stamina loss."})
-Players:AddSlider('Speed Sprint', {
-Text = 'Speed Sprint',
-Default = 24,
-Min = 28,
-Max = 28,
+Tooltip = "This is slider stamina loss.",
+Callback = function(v)
+_G.StaminaLossS = v
+end})
+Players:AddSlider('Speed Boost', {
+Text = 'Speed Boost',
+Default = 0,
+Min = 0,
+Max = 4,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider sprint speed."})
+Tooltip = "This is slider sprint speed.",
+Callback = function(v)
+_G.SpeedSprintS = v
+end})
 Players:AddLabel("-- Killer --")
 Players:AddSlider('Max Stamina', {
 Text = 'Max Stamina',
 Default = 110,
 Min = 110,
-Max = 400,
+Max = 777,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider max stamina."})
+Tooltip = "This is slider max stamina.",
+Callback = function(v)
+_G.MaxStaminaK = v
+end})
 Players:AddSlider('Stamina Gain', {
 Text = 'Stamina Gain',
 Default = 10,
 Min = 10,
-Max = 400,
+Max = 777,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider stamina gain."})
+Tooltip = "This is slider stamina gain.",
+Callback = function(v)
+_G.StaminaGainK = v
+end})
 Players:AddSlider('Stamina Loss', {
 Text = 'Stamina Loss',
-Default = 1,
-Min = 0.1,
-Max = 1,
+Default = 10,
+Min = 0,
+Max = 10,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider stamina loss."})
-Players:AddSlider('Speed Sprint', {
-Text = 'Speed Sprint',
-Default = 28,
-Min = 28,
-Max = 30,
+Tooltip = "This is slider stamina loss.",
+Callback = function(v)
+_G.StaminaLossK = v
+end})
+Players:AddSlider('Speed Boost', {
+Text = 'Speed Boost',
+Default = 0,
+Min = 0,
+Max = 2,
 Rounding = 1,
 Compact = false,
-Tooltip = "This is slider sprint speed."})
+Tooltip = "This is slider sprint speed.",
+Callback = function(v)
+_G.SpeedSprintK = v
+end})
 local LocalPlayer = Tabs.Visual:AddRightGroupbox("LocalPlayer")
 LocalPlayer:AddLabel("❕WARNING : CAN BANNED❕")
-LocalPlayer:AddSlider('Spam Footstep Delay', {
-Text = 'Spam Footstep Delay',
-Default = 0.3,
-Min = 0.1,
-Max = 1,
-Rounding = 1,
-Compact = false,
-Tooltip = "This is slider spam footstep delay."})
-LocalPlayer:AddSlider('Flick Delay', {
-Text = 'Flick Delay',
-Default = 0.3,
-Min = 0.1,
-Max = 1,
-Rounding = 1,
-Compact = false,
-Tooltip = "This is slider flick delay."})
-LocalPlayer:AddDivider()
 LocalPlayer:AddToggle("Invisible",{
 Text = "Invisible",
 Default = false,
 Risky = true,
-Tooltip = "Invisible."})
-LocalPlayer:AddToggle("Spam Footstep",{
-Text = "Spam Footstep",
-Default = false,
-Risky = true,
-Tooltip = "Invisible."})
-LocalPlayer:AddToggle("Flip",{
-Text = "Flip",
-Default = false,
-Risky = true,
-Tooltip = "Will create a small gui click to flip."})
+Tooltip = "Invisible.",
+Callback = function(v)
+_G.Invisible = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Invisible and game.Players.LocalPlayer.Character.Parent ~= workspace.Players.Spectating then
+local Animation = Instance.new("Animation")
+Animation.Name = "Invisible_Animation"
+Animation.AnimationId = "rbxassetid://75804462760596"
+local Load = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Animation)
+Load:Play(0,1,1)
+Load:AdjustSpeed(0)
+else
+for i,v in next, game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks() do
+if v.Animation.Name == "Invisible_Animation" then
+v:Stop()
+end
+end
+end
+end)
+end})
 LocalPlayer:AddToggle("Fake Block",{
 Text = "Fake Block",
 Default = false,
 Risky = true,
 Tooltip = "Will create a small gui click to fake block."})
-local Aimbot = Tabs.Auto:AddLeftGroupbox("Aimbot")
+local Auto = Tabs.Auto:AddLeftGroupbox("Aimbot")
 Auto:AddToggle("Aimbot Guest Charge",{
 Text = "Aimbot Guest Charge",
 Default = false,
@@ -399,7 +491,7 @@ Text = "Aimbot Nova",
 Default = false,
 Tooltip = "Will always aim nova noli."})
 Auto:AddToggle("Aimbot Void Rush",{
-Text = "Aimbot Rush",
+Text = "Aimbot Void Rush",
 Default = false,
 Tooltip = "Will always aim void rush noli."})
 Auto:AddToggle("Aimbot Demonic Pursuit",{
