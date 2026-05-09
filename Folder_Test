@@ -62,8 +62,7 @@ Tooltip = "This is features remove fake noli.",
 Callback = function(v)
 if v and KillerExclusive:FindFirstChild("Hallucination") then
 KillerExclusive.Hallucination.Parent = Folder
-else
-if Folder:FindFirstChild("Hallucination") then
+elseif Folder:FindFirstChild("Hallucination") then
 Folder.Hallucination.Parent = KillerExclusive
 end
 end})
@@ -74,8 +73,7 @@ Tooltip = "This is features remove subspaced effect subtripe mine.",
 Callback = function(v)
 if v and SurvivorExclusive:FindFirstChild("Subspaced") then
 SurvivorExclusive.Subspaced.Parent = Folder
-else
-if Folder:FindFirstChild("Subspaced") then
+elseif Folder:FindFirstChild("Subspaced") then
 Folder.Subspaced.Parent = SurvivorExclusive
 end
 end})
@@ -136,8 +134,7 @@ Tooltip = "This is features help you cant 'blinding' effect.",
 Callback = function(v)
 if v and Effects:FindFirstChild("Blinding") then
 Effects.Blinding.Parent = Folder
-else
-if Folder:FindFirstChild("Blinding") then
+elseif Folder:FindFirstChild("Blinding") then
 Folder.Blinding.Parent = Effects
 end
 end})
@@ -148,8 +145,7 @@ Tooltip = "This is features help you cant 'slowness' effect.",
 Callback = function(v)
 if v and Effects:FindFirstChild("Slowness") then
 Effects.Slowness.Parent = Folder
-else
-if Folder:FindFirstChild("Slowness") then
+elseif Folder:FindFirstChild("Slowness") then
 Folder.Slowness.Parent = Effects
 end
 end})
@@ -160,8 +156,7 @@ Tooltip = "This is features help you cant 'glitched' effect.",
 Callback = function(v)
 if v and Effects:FindFirstChild("Glitched") then
 Effects.Glitched.Parent = Folder
-else
-if Folder:FindFirstChild("Glitched") then
+elseif Folder:FindFirstChild("Glitched") then
 Folder.Glitched.Parent = Effects
 end
 end})
@@ -175,8 +170,7 @@ Tooltip = "This is features help you cant 'stunned' effect.",
 Callback = function(v)
 if v and Effects:FindFirstChild("Stunned") then
 Effects.Stunned.Parent = Folder
-else
-if Folder:FindFirstChild("Stunned") then
+elseif Folder:FindFirstChild("Stunned") then
 Folder.Stunned.Parent = Effects
 end
 end})
