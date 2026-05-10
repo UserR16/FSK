@@ -600,15 +600,6 @@ else
 MassAimbot:Disconnect()
 end
 end})
-fake block : rbxassetid://72722244508749
-punch : rbxassetid://609342351
-charge : rbxassetid://126814334954192
-slash : rbxassetid://12222225
-mass infection : rbxassetid://132331977491979
-intelement : rbxassetid://105934041806374
-ws override : rbxassetid://121369993837377
-void rush : rbxassetid://107347032614322
-
 Auto:AddToggle("Aimbot Entanglement",{
 Text = "Aimbot Entanglement",
 Default = false,
