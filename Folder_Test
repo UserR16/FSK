@@ -44,17 +44,17 @@ Info:AddLabel('Device : ' .. if mobile then "Mobile" else "PC")
 local Folder = Instance.new("Folder", workspace)
 Folder.Name = "SaveFolder"
 
-local Effects = game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("StatusEffects")
+local Modules = game:GetService("ReplicatedStorage"):WaitForChild("Modules")
+local Effects = Modules:WaitForChild("Schematics"):WaitForChild("StatusEffects")
 local KillerEffect = Effects:WaitForChild("KillerExclusive")
-local SurvivorEffect = Effects:WaitForChild("SurvivorEffect")
+local SurvivorEffect = Effects:WaitForChild("SurvivorExclusive")
 local Players = workspace:WaitForChild("Players")
 local Killers = Players:WaitForChild("Killers")
 local Survivors = Players:WaitForChild("Survivors")
 local Ingame = workspace:WaitForChild("Map"):WaitForChild("Ingame")
-local Map = Ingame:WaitForChild("Map")
 local RunService = game:GetService("RunService")
 
-local Anti = Tabs.Anti:AddLeftGroupo("Anti")
+local Anti = Tabs.Anti:AddLeftGroupbox("Anti")
 Anti:AddToggle("Anti Fake Noli",{
 Text = "Anti Fake Noli",
 Default = false,
@@ -284,8 +284,7 @@ Callback = function(v)
 _G.FieldOfView = v
 RunService.Stepped:Connect(function()
 if _G.FieldOfView then
-local FOV = TweenService:Create(workspace.CurrentCamera, TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {FieldOfView = _G.FOV})
-FOV:Play()
+workspace.Camera.FieldOfView = _G.FOV
 end
 end)
 end})
@@ -321,12 +320,15 @@ if v.Parent.Name == "Survivors" and v:GetAttribute("Username") == game.Players.L
 StaminaScript.MaxStamina = _G.MaxStaminaS or 100
 StaminaScript.StaminaGain = _G.StaminaGainS or 30
 StaminaScript.StaminaLoss = _G.StaminaLossS or 10
-StaminaScript.SprintSpeed = StaminaScript.SprintSpeed + _G.SpeedSprintS
-elseif v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+StaminaScript.SprintSpeed = 26 + _G.SpeedSprintS
+end
+end
+for _,v in ipairs(Killers:GetChildren()) do
+if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 StaminaScript.MaxStamina = _G.MaxStaminaK or 110
 StaminaScript.StaminaGain = _G.StaminaGainK or 30
 StaminaScript.StaminaLoss = _G.StaminaLossK or 10
-StaminaScript.SprintSpeed = StaminaScript.SprintSpeed + _G.SpeedSprintK
+StaminaScript.SprintSpeed = 27.75 + _G.SpeedSprintK
 end
 end
 end)
@@ -374,7 +376,7 @@ Tooltip = "This is slider sprint speed.",
 Callback = function(v)
 _G.SpeedSprintS = v
 end})
-Players:AddLabel("-- Killer --")
+Players:AddLabel("-- Killer --") 
 Players:AddSlider('Max Stamina', {
 Text = 'Max Stamina',
 Default = 110,
@@ -445,58 +447,250 @@ end
 end
 end)
 end})
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "FakeBlock_Button"
+ScreenGui.ResetOnSpawn = true
+ScreenGui.Parent = game.CoreGui
+ScreenGui.Enabled = false
+
+local Button = Instance.new("TextButton")
+Button.Size = UDim2.new(0, 100, 0, 70)
+Button.Position = UDim2.new(0.85, 0, 0, 10)
+Button.BackgroundColor3 = Library.Scheme.BackgroundColor
+Button.BackgroundTransparency = 0
+Button.Text = "Fake Block"
+Button.TextColor3 = Color3.new(1,1,1)
+Button.Parent = ScreenGui
+
+local Shadow = Instance.new("Frame")
+Shadow.Size = UDim2.new(0, 100, 0, 70)
+Shadow.Position = UDim2.new(0, 0, 0, 0)
+Shadow.BackgroundTransparency = 1
+Shadow.Parent = Button
+
+local uc = Instance.new("UICorner", Shadow)
+local uc2 = Instance.new("UICorner", Button)
+
+local UIStrokeShadow = Instance.new("UIStroke")
+UIStrokeShadow.Color = Library.Scheme.MainColor
+UIStrokeShadow.Thickness = 3
+UIStrokeShadow.Transparency = 0
+UIStrokeShadow.Parent = Shadow
+
+game:GetService("RunService").RenderStepped:Connect(function()
+UIStrokeShadow.Color = Library.Scheme.MainColor
+Button.BackgroundColor3 = Library.Scheme.BackgroundColor
+end)
+Button.MouseButton1Click:Connect(function()
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local Animator = Humanoid:WaitForChild("Animator")
+local AnimationObject = Instance.new("Animation")
+AnimationObject.AnimationId = "rbxassetid://72722244508749"
+local AnimationTrack = Animator:LoadAnimation(AnimationObject)
+if AnimationTrack then
+AnimationTrack:Play()
+end
+end)
 LocalPlayer:AddToggle("Fake Block",{
 Text = "Fake Block",
 Default = false,
 Risky = true,
-Tooltip = "Will create a small gui click to fake block."})
+Tooltip = "Will create a small gui click to fake block.",
+Callback = function(v)
+ScreenGui.Enabled = v
+end})
 local Auto = Tabs.Auto:AddLeftGroupbox("Aimbot")
 Auto:AddToggle("Aimbot Guest Charge",{
 Text = "Aimbot Guest Charge",
 Default = false,
-Tooltip = "Will always aim guest charge."})
+Tooltip = "Will always aim guest charge.",
+Callback = function(v)
+if v then
+ChargeAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
+local Character = game:GetService("Players").LocalPlayer.Character
+if Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192") then
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+end
+end)
+else
+ChargeAimbot:Disconnect()
+end
+end})
 Auto:AddToggle("Aimbot Guest Punch",{
 Text = "Aimbot Guest Punch",
 Default = false,
-Tooltip = "Will always aim guest punch."})
+Tooltip = "Will always aim guest punch.",
+Callback = function(v)
+if v then
+PunchAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
+local Character = game:GetService("Players").LocalPlayer.Character
+if Character.HumanoidRootPart:FindFirstChild("rbxassetid://609342351") then
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+end
+end)
+else
+PunchAimbot:Disconnect()
+end
+end})
 Auto:AddToggle("Aimbot Chance Shoot",{
 Text = "Aimbot Chance Shoot",
 Default = false,
-Tooltip = "Will always aim chance shoot."})
+Tooltip = "Will always aim chance shoot.",
+Callback = function(v)
+if v then
+ChanceAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
+local Character = game:GetService("Players").LocalPlayer.Character
+if Character.HumanoidRootPart:FindFirstChild("rbxassetid://39012439429121") then
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+end
+end)
+else
+ChanceAimbot:Disconnect()
+end
+end})
 Auto:AddToggle("Aimbot Shedletsky Slash",{
 Text = "Aimbot Shedletsky Slash",
 Default = false,
-Tooltip = "Will always aim shedletsky slash."})
+Tooltip = "Will always aim shedletsky slash.",
+Callback = function(v)
+if v then
+ShedAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
+local Character = game:GetService("Players").LocalPlayer.Character
+if Character.HumanoidRootPart:FindFirstChild("rbxassetid://12222225") then
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+end
+end)
+else
+ShedAimbot:Disconnect()
+end
+end})
 Auto:AddDivider()
 Auto:AddToggle("Aimbot Mass Infection",{
 Text = "Aimbot Mass Infection",
 Default = false,
-Tooltip = "Will always aim mass infection 1x."})
+Tooltip = "Will always aim mass infection 1x.",
+Callback = function(v)
+if v then
+MassAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+Char = game.Players.LocalPlayer.Character
+if not Char or not Char:FindFirstChild("HumanoidRootPart") then return end
+Target, Dist = nil, 9999
+for _, v in ipairs(Survivors:GetChildren()) do
+if v:FindFirstChild("HumanoidRootPart") then
+Mag = (Char.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
+if Mag < Dist then Dist = Mag; Target = v end
+end
+end
+for _,v in ipairs(Killers:GetChildren()) do
+if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://132331977491979") then
+Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+end
+end
+end
+end)
+else
+MassAimbot:Disconnect()
+end
+end})
+fake block : rbxassetid://72722244508749
+punch : rbxassetid://609342351
+charge : rbxassetid://126814334954192
+slash : rbxassetid://12222225
+mass infection : rbxassetid://132331977491979
+intelement : rbxassetid://105934041806374
+ws override : rbxassetid://121369993837377
+void rush : rbxassetid://107347032614322
+
 Auto:AddToggle("Aimbot Entanglement",{
 Text = "Aimbot Entanglement",
 Default = false,
-Tooltip = "Will always aim entanglement 1x."})
+Tooltip = "Will always aim entanglement 1x.",
+Callback = function(v)
+if v then
+EntanglementAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+Char = game.Players.LocalPlayer.Character
+if not Char or not Char:FindFirstChild("HumanoidRootPart") then return end
+Target, Dist = nil, 9999
+for _, v in ipairs(workspace.Players.Survivors:GetChildren()) do
+if v:FindFirstChild("HumanoidRootPart") then
+Mag = (Char.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
+if Mag < Dist then Dist = Mag; Target = v end
+end
+end
+for _,v in ipairs(Killers:GetChildren()) do
+if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://105934041806374") then
+Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+end
+end
+end
+end)
+else
+EntanglementAimbot:Disconnect()
+end
+end})
 Auto:AddToggle("Aimbot Walkspeed Overidde",{
 Text = "Aimbot Walkspeed Override",
 Default = false,
-Tooltip = "Will always aim walkspeed override c00lkidd."})
-Auto:AddToggle("Aimbot Nova",{
-Text = "Aimbot Nova",
-Default = false,
-Tooltip = "Will always aim nova noli."})
+Tooltip = "Will always aim walkspeed override c00lkidd.",
+Callback = function(v)
+if v then
+WalkSpeedAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+Char = game.Players.LocalPlayer.Character
+if not Char or not Char:FindFirstChild("HumanoidRootPart") then return end
+Target, Dist = nil, 9999
+for _, v in ipairs(workspace.Players.Survivors:GetChildren()) do
+if v:FindFirstChild("HumanoidRootPart") then
+Mag = (Char.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
+if Mag < Dist then Dist = Mag; Target = v end
+end
+end
+for _,v in ipairs(Killers:GetChildren()) do
+if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://121369993837377") then
+Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+end
+end
+end
+end)
+else
+WalkSpeedAimbot:Disconnect()
+end
+end})
 Auto:AddToggle("Aimbot Void Rush",{
 Text = "Aimbot Void Rush",
 Default = false,
-Tooltip = "Will always aim void rush noli."})
-Auto:AddToggle("Aimbot Demonic Pursuit",{
-Text = "Aimbot Demonic Pursuit",
-Default = false,
-Tooltip = "Will always aim demonic pursuit guest 666."})
-Auto:AddToggle("Aimbot Infernal Cry",{
-Text = "Aimbot Infernal Cry",
-Default = false,
-Tooltip = "Will always aim infernal cry guest 666."})
-Auto:AddToggle("Aimbot Corrupt Energy",{
-Text = "Aimbot Corrupt Energy",
-Default = false,
-Tooltip = "Will always aim corrupt energy john doe."})
+Tooltip = "Will always aim void rush noli.",
+Callback = function(v)
+if v then
+VoidRushAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+Char = game.Players.LocalPlayer.Character
+if not Char or not Char:FindFirstChild("HumanoidRootPart") then return end
+Target, Dist = nil, 9999
+for _, v in ipairs(workspace.Players.Survivors:GetChildren()) do
+if v:FindFirstChild("HumanoidRootPart") then
+Mag = (Char.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
+if Mag < Dist then Dist = Mag; Target = v end
+end
+end
+for _,v in ipairs(Killers:GetChildren()) do
+if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://105934041806374") then
+Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+end
+end
+end
+end)
+else
+VoidRushAimbot:Disconnect()
+end
+end})
