@@ -48,9 +48,9 @@ local Modules = game:GetService("ReplicatedStorage"):WaitForChild("Modules")
 local Effects = Modules:WaitForChild("Schematics"):WaitForChild("StatusEffects")
 local KillerEffect = Effects:WaitForChild("KillerExclusive")
 local SurvivorEffect = Effects:WaitForChild("SurvivorExclusive")
-local Players = workspace:WaitForChild("Players")
-local Killers = Players:WaitForChild("Killers")
-local Survivors = Players:WaitForChild("Survivors")
+local PlayersGame = workspace:WaitForChild("Players")
+local Killers = PlayersGame:WaitForChild("Killers")
+local Survivors = PlayersGame:WaitForChild("Survivors")
 local Ingame = workspace:WaitForChild("Map"):WaitForChild("Ingame")
 local RunService = game:GetService("RunService")
 
@@ -60,10 +60,10 @@ Text = "Anti Fake Noli",
 Default = false,
 Tooltip = "This is features remove fake noli.",
 Callback = function(v)
-if v and KillerExclusive:FindFirstChild("Hallucination") then
-KillerExclusive.Hallucination.Parent = Folder
+if v and KillerEffect:FindFirstChild("Hallucination") then
+KillerEffect.Hallucination.Parent = Folder
 elseif Folder:FindFirstChild("Hallucination") then
-Folder.Hallucination.Parent = KillerExclusive
+Folder.Hallucination.Parent = KillerEffect
 end
 end})
 Anti:AddToggle("Anti Subspaced",{
@@ -71,10 +71,10 @@ Text = "Anti Subspaced",
 Default = false,
 Tooltip = "This is features remove subspaced effect subtripe mine.",
 Callback = function(v)
-if v and SurvivorExclusive:FindFirstChild("Subspaced") then
-SurvivorExclusive.Subspaced.Parent = Folder
+if v and SurvivorEffect:FindFirstChild("Subspaced") then
+SurvivorEffect.Subspaced.Parent = Folder
 elseif Folder:FindFirstChild("Subspaced") then
-Folder.Subspaced.Parent = SurvivorExclusive
+Folder.Subspaced.Parent = SurvivorEffect
 end
 end})
 Anti:AddToggle("Anti John Doe Trail",{
@@ -127,15 +127,15 @@ end
 end
 end
 end})
-Anti:AddToggle("Anti Blinding",{
-Text = "Anti Blinding",
+Anti:AddToggle("Anti Blindness",{
+Text = "Anti Blindness",
 Default = false,
 Tooltip = "This is features help you cant 'blinding' effect.",
 Callback = function(v)
-if v and Effects:FindFirstChild("Blinding") then
-Effects.Blinding.Parent = Folder
-elseif Folder:FindFirstChild("Blinding") then
-Folder.Blinding.Parent = Effects
+if v and Effects:FindFirstChild("Blindness") then
+Effects.Blindness.Parent = Folder
+elseif Folder:FindFirstChild("Blindness") then
+Folder.Blindness.Parent = Effects
 end
 end})
 Anti:AddToggle("Anti Slowness",{
@@ -154,10 +154,10 @@ Text = "Anti Glitched",
 Default = false,
 Tooltip = "This is features help you cant 'glitched' effect.",
 Callback = function(v)
-if v and Effects:FindFirstChild("Glitched") then
-Effects.Glitched.Parent = Folder
+if v and KillerEffect:FindFirstChild("Glitched") then
+KillerEffect.Glitched.Parent = Folder
 elseif Folder:FindFirstChild("Glitched") then
-Folder.Glitched.Parent = Effects
+Folder.Glitched.Parent = KillerEffect
 end
 end})
 Anti:AddDivider()
@@ -449,14 +449,14 @@ _G.Invisible = v
 end})
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "FakeBlock_Button"
-ScreenGui.ResetOnSpawn = true
+ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = game.CoreGui
 ScreenGui.Enabled = false
 
 local Button = Instance.new("TextButton")
 Button.Size = UDim2.new(0, 100, 0, 70)
 Button.Position = UDim2.new(0.85, 0, 0, 10)
-Button.BackgroundColor3 = Library.Scheme.BackgroundColor
+Button.BackgroundColor3 = Library.BackgroundColor
 Button.BackgroundTransparency = 0
 Button.Text = "Fake Block"
 Button.TextColor3 = Color3.new(1,1,1)
@@ -472,14 +472,14 @@ local uc = Instance.new("UICorner", Shadow)
 local uc2 = Instance.new("UICorner", Button)
 
 local UIStrokeShadow = Instance.new("UIStroke")
-UIStrokeShadow.Color = Library.Scheme.MainColor
+UIStrokeShadow.Color = Library.MainColor
 UIStrokeShadow.Thickness = 3
 UIStrokeShadow.Transparency = 0
 UIStrokeShadow.Parent = Shadow
 
 game:GetService("RunService").RenderStepped:Connect(function()
-UIStrokeShadow.Color = Library.Scheme.MainColor
-Button.BackgroundColor3 = Library.Scheme.BackgroundColor
+UIStrokeShadow.Color = Library.MainColor
+Button.BackgroundColor3 = Library.BackgroundColor
 end)
 Button.MouseButton1Click:Connect(function()
 local Players = game:GetService("Players")
