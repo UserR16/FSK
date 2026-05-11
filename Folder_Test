@@ -1,3 +1,50 @@
+--// Create Text \\
+local function Text(target, title, color, fontsize, name)
+local Billboard = Instance.new("BillboardGui", target)
+local TextLabel = Instance.new("TextLabel", Billboard)
+local UIStroke = Instance.new("UIStroke", TextLabel)
+--// Billboard \\
+Billboard.AlwaysOnTop = true
+Billboard.Size = UDim2.new(0,400,0,100)
+Billboard.Name = name
+Billboard.Active = true
+--// TextLabel \\
+TextLabel.AnchorPoint = Vector2.new(0.5,0.5)
+TextLabel.BackgroundTransparency = 1
+TextLabel.BackgroundColor3 = Color3.new(0,0,0)
+TextLabel.TextColor3 = color
+TextLabel.Font = "SourceSans"
+TextLabel.TextSize = fontsize
+TextLabel.TextTransparency = 0
+TextLabel.Visible = true
+TextLabel.Text = title
+TextLabel.Size = UDim2.new(1,0,0,0)
+TextLabel.Position = UDim2.new(0.5,0,0.7,-35)
+--// UIStroke \\
+UIStroke.Thickness = 1
+UIStroke.Color = Color3.new()
+UIStroke.Transparency = 0
+end
+--// Create Highlight \\
+local function Highlight(target, color, name)
+task.wait(0.25)
+local Highlight = Instance.new('Highlight', target)
+--// Highlight \\
+Highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+Highlight.FillColor = color
+Highlight.OutlineColor = color
+Highlight.FillTransparency = 1
+Highlight.OutlineTransparency =  0
+Highlight.Name = name
+end
+--// Disable Text & Highlight \\
+local function Disable(name)
+for _,v in ipairs(workspace:GetDescendants()) do
+if v.Name == name then
+v:Destroy()
+end
+end
+end
 local repo = 'https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/'
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
@@ -26,7 +73,7 @@ local Tabs = {
   Anti = Window:AddTab('Anti'),
   Visual = Window:AddTab('Visual'),
   Auto = Window:AddTab('Auto'),
-  Generators = Window:AddTab('Generator'),
+  ESP = Window:AddTab('ESP'),
   Settings = Window:AddTab('Setting')
 }
 
@@ -213,11 +260,19 @@ Default = false,
 Tooltip = "Get the installed features on.",
 Callback = function(v)
 _G.ChamsBody = v
-RunService.RenderStepped:Connect(function()
 for _,v in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
 if v:IsA("BasePart") and v and v.Parent then
+local tranbefore = v.Transparency
+end
+end
+RunService.RenderStepped:Connect(function()
+for _,v in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
+if _G.ChamsBody and v:IsA("BasePart") and v and v.Parent then
 v.Material = "ForceField"
 v.Transparency = _G.BodyTransparency or 0
+else
+v.Material = "Plastic"
+v.Transparency = tranbefore
 end
 end
 end)
@@ -459,6 +514,7 @@ Button.Position = UDim2.new(0.85, 0, 0, 10)
 Button.BackgroundColor3 = Library.BackgroundColor
 Button.BackgroundTransparency = 0
 Button.Text = "Fake Block"
+Button.Font = "GothamBold"
 Button.TextColor3 = Color3.new(1,1,1)
 Button.Parent = ScreenGui
 
@@ -514,6 +570,7 @@ local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
 if Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
 end
 end)
 else
@@ -563,8 +620,11 @@ if v then
 ShedAimbot = game:GetService("RunService").RenderStepped:Connect(function()
 local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
-if Character.HumanoidRootPart:FindFirstChild("rbxassetid://12222225") then
+local Sword = Character:FindFirstChild("Sword")
+if Sword then
+if Sword:FindFirstChild("rbxassetid://12222225") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+end
 end
 end)
 else
@@ -648,6 +708,7 @@ for _,v in ipairs(Killers:GetChildren()) do
 if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://121369993837377") then
 Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
 end
 end
 end
@@ -674,7 +735,7 @@ end
 end
 for _,v in ipairs(Killers:GetChildren()) do
 if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
-if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://105934041806374") then
+if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://107347032614322") then
 Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
 workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
 end
@@ -683,5 +744,132 @@ end
 end)
 else
 VoidRushAimbot:Disconnect()
+end
+end})
+local ESP = Tabs.ESP:AddLeftGroupbox('ESP')
+
+ESP:AddToggle("KE",{
+Text = "Killers ESP",
+Default = false,
+Callback = function(v)
+if v then
+for _, v in pairs(workspace.Players.Killers:GetChildren()) do
+if v:IsA("Model") and v.Parent.Name == "Killers" and v and v.Parent then
+Text(v.HumanoidRootPart, v.Name .. "\n" .. v:GetAttribute("SkinNameDisplay"), Color3.new(1), 14, "Killer_ESP")
+Highlight(v, Color3.new(1), "Killer_ESP")
+elseif v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+v:FindFirstChild("Killer_ESP"):Destroy()
+end
+end
+KillerESP = workspace.Players.Killers.ChildAdded:Connect(function(v)
+wait(2)
+if v:IsA("Model") and v.Parent.Name == "Killers" and v and v.Parent then
+Text(v.HumanoidRootPart, v.Name .. "\n" .. v:GetAttribute("SkinNameDisplay"), Color3.new(1), 14, "Killer_ESP")
+Highlight(v, Color3.new(1), "Killer_ESP")
+elseif v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
+v:FindFirstChild("Killer_ESP"):Destroy()
+end
+end)
+else
+KillerESP:Disconnect()
+Disable("Killer_ESP")
+end
+end})
+ESP:AddToggle("SE",{
+Text = "Survivor ESP",
+Default = false,
+Callback = function(v)
+if v then
+for _, v in ipairs(workspace.Players.Survivors:GetChildren()) do
+if v:IsA("Model") and v.Parent.Name == "Survivors" and v and v.Parent and not v:FindFirstChild("Survivor_ESP") then
+Text(v.HumanoidRootPart, v.Name, Color3.new(0,1), 14, "Survivor_ESP")
+Highlight(v, Color3.new(0,1), "Survivor_ESP")
+end
+end
+SurvivalESP = workspace.Players.Survivors.ChildAdded:Connect(function(v)
+wait(2)
+if v:IsA("Model") and v.Parent.Name == "Survivors" and v and v.Parent and not v:FindFirstChild("Survivor_ESP") then
+Text(v.HumanoidRootPart, v.Name, Color3.new(0,1), 14, "Survivor_ESP")
+Highlight(v, Color3.new(0,1), "Survivor_ESP")
+end
+end)
+else
+SurvivalESP:Disconnect()
+Disable("Survivor_ESP")
+end
+end})
+ESP:AddToggle("IE",{
+Text = "Items ESP",
+Default = false,
+Callback = function(v)
+if v then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v:IsA("Model") and v.Name == "BloxyCola" and v and v.Parent and not v:FindFirstChild("Items_ESP") then
+Text(v, v.Name, Color3.new(1,1), 14, "Items_ESP")
+Highlight(v, Color3.new(1,1), "Items_ESP")
+elseif v:IsA("Model") and v.Name == "Medkit" and v and v.Parent and not v:FindFirstChild("Items_ESP") then
+Text(v, v.Name, Color3.new(1), 14, "Items_ESP")
+Highlight(v, Color3.new(1), "Items_ESP")
+end
+end
+ItemsESP = workspace.Map.Ingame.DescendantAdded:Connect(function(v)
+if v:IsA("Model") and v then
+if v.Name == "BloxyCola" and v and v.Parent and not v:FindFirstChild("Items_ESP") then
+Text(v, v.Name, Color3.new(1,1), 14, "Items_ESP")
+Highlight(v, Color3.new(1,1), "Items_ESP")
+elseif v.Name == "Medkit" and v and v.Parent and not v:FindFirstChild("Items_ESP") then
+Text(v, v.Name, Color3.new(1), 14, "Items_ESP")
+Highlight(v, Color3.new(1), "Items_ESP")
+end
+end
+end)
+else
+ItemsESP:Disconnect()
+Disable("Items_ESP")
+end
+end})
+ESP:AddToggle("GE",{
+Text = "Generator ESP",
+Default = false,
+Callback = function(v)
+if v then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v:IsA("Model") and v.Parent.Name == "Map" and v.Name == "Generator" and v and v.Parent and not v:FindFirstChild("Generator_ESP") then
+Text(v, v.Name, Color3.new(0,0,1), 14, "Generator_ESP")
+Highlight(v, Color3.new(0,0,1), "Generator_ESP")
+end
+end
+GeneratorESP = Ingame.DescendantAdded:Connect(function(v)
+if v:IsA("Model") and v.Parent.Name == "Map" and v.Name == "Generator" and v and v.Parent and not v:FindFirstChild("Generator_ESP") then
+Text(v, v.Name, Color3.new(0,0,1), 14, "Generator_ESP")
+Highlight(v, Color3.new(0,0,1), "Generator_ESP")
+end
+end)
+else
+GeneratorESP:Disconnect()
+Disable("Generator_ESP")
+end
+end})
+ESP:AddToggle("SSTME",{
+Text = "Subspace Tripmine ESP",
+Default = false,
+Callback = function(v)
+if v then
+for _, v in ipairs(workspace:GetDescendants()) do
+if v:IsA("Model") and v.Name == "SubspaceTripmine" and v and v.Parent and not v:FindFirstChild("SubspaceTripmine_ESP") then
+Text(v, v.Name, Color3.new(1,0,1), 14, "SSTM_ESP")
+Highlight(v, Color3.new(1,0,1), "SSTM_ESP")
+end
+end
+SubspaceTripmineESP = workspace.Map.Ingame.DescendantAdded:Connect(function(v)
+wait(1)
+if v:IsA("Model") and v.Name == "SubspaceTripmine" and v and v.Parent and not v:FindFirstChild("SubspaceTripmine_ESP") then
+Text(v, v.Name, Color3.new(1,0,1), 14, "SSTm_ESP")
+Highlight(v, Color3.new(1,0,1), "SSTM_ESP")
+end
+end)
+else
+SubspaceTripmineESP:Disconnect()
+Disable("SSTM_ESP")
 end
 end})
