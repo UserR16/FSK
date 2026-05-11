@@ -423,13 +423,6 @@ _G.SpeedSprintK = v
 end})
 local LocalPlayer = Tabs.Visual:AddRightGroupbox("LocalPlayer")
 LocalPlayer:AddLabel("❕WARNING : CAN BANNED❕")
-LocalPlayer:AddToggle("Invisible",{
-Text = "Invisible",
-Default = false,
-Risky = true,
-Tooltip = "Invisible.",
-Callback = function(v)
-_G.Invisible = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.Invisible and game.Players.LocalPlayer.Character.Parent ~= workspace.Players.Spectating then
 local Animation = Instance.new("Animation")
@@ -446,8 +439,14 @@ end
 end
 end
 end)
+LocalPlayer:AddToggle("Invisible",{
+Text = "Invisible",
+Default = false,
+Risky = true,
+Tooltip = "Invisible.",
+Callback = function(v)
+_G.Invisible = v
 end})
---[[
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "FakeBlock_Button"
 ScreenGui.ResetOnSpawn = true
@@ -502,7 +501,7 @@ Risky = true,
 Tooltip = "Will create a small gui click to fake block.",
 Callback = function(v)
 ScreenGui.Enabled = v
-end})]]--
+end})
 local Auto = Tabs.Auto:AddLeftGroupbox("Aimbot")
 Auto:AddToggle("Aimbot Guest Charge",{
 Text = "Aimbot Guest Charge",
