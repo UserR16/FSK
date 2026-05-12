@@ -1,9 +1,4 @@
 --// v1.2 script \\
-for _,v in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
-if v:IsA("BasePart") and v and v.Parent then
-local tranbefore = v.Transparency
-end
-end
 --// Create Text \\
 local function Text(target, title, color, fontsize, name)
 local Billboard = Instance.new("BillboardGui", target)
@@ -273,36 +268,6 @@ end
 end
 end})
 local Misc = Tabs.Visual:AddRightGroupbox("Misc")
-Misc:AddSlider('Body Transparency', {
-Text = 'Body Transparency',
-Default = 0,
-Min = 0,
-Max = 1,
-Rounding = 2,
-Compact = false,
-Tooltip = "This is slider your body transparency.",
-Callback = function(v)
-_G.BodyTransparency = v
-end})
-Misc:AddToggle("Enabled Body",{
-Text = "Chams Body",
-Default = false,
-Tooltip = "Get the installed features on.",
-Callback = function(v)
-_G.ChamsBody = v
-RunService.RenderStepped:Connect(function()
-for _,v in ipairs(game:GetService("Players").LocalPlayer.Character:GetChildren()) do
-if _G.ChamsBody and v:IsA("BasePart") and v and v.Parent then
-v.Material = "ForceField"
-v.Transparency = _G.BodyTransparency or 0
-else
-v.Material = "Plastic"
-v.Transparency = tranbefore
-end
-end
-end)
-end})
-Misc:AddDivider()
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.AutoPizza then
 for _,v in ipairs(Ingame:GetChildren()) do
@@ -595,7 +560,7 @@ local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
 if Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
-workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.Position, Target.HumanoidRootPart.Position)
 end
 end)
 else
@@ -628,7 +593,7 @@ if v then
 ChanceAimbot = game:GetService("RunService").RenderStepped:Connect(function()
 local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
-if Character.HumanoidRootPart:FindFirstChild("rbxassetid://39012439429121") then
+if Character.HumanoidRootPart:FindFirstChild("rbxassetid://139012439429121") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://80521472651047") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://2920960") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://74027282199279") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
 end
 end)
@@ -654,6 +619,23 @@ end
 end)
 else
 ShedAimbot:Disconnect()
+end
+end})
+Auto:AddToggle("Aimbot Twotime stab",{
+Text = "Aimbot TwoTime Stab",
+Default = false,
+Tooltip = "Will always aim two time stab.",
+Callback = function(v)
+if v then
+TwoTimeAimbot = game:GetService("RunService").RenderStepped:Connect(function()
+local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
+local Character = game.Players.LocalPlayer.Character
+if (game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position - Killers.HumanoidRootPart.Position).Magnitude < 7 then
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
+end
+end)
+else
+TwoTimeAimbot:Disconnect()
 end
 end})
 Auto:AddDivider()
@@ -733,7 +715,7 @@ for _,v in ipairs(Killers:GetChildren()) do
 if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://121369993837377") then
 Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
-workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.Position, Target.HumanoidRootPart.Position)
 end
 end
 end
@@ -762,7 +744,7 @@ for _,v in ipairs(Killers:GetChildren()) do
 if v.Parent.Name == "Killers" and v:GetAttribute("Username") == game.Players.LocalPlayer.Name then
 if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://107347032614322") then
 Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
-workspace.Camera.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.Position, Target.HumanoidRootPart.Position)
 end
 end
 end
@@ -771,6 +753,42 @@ else
 VoidRushAimbot:Disconnect()
 end
 end})
+local Lighting = Tabs.Auto:AddRightGroupbox('Lighting')
+Lighting:AddToggle("NoFog",{
+Text = "Removal Fog",
+Default = false,
+Callback = function(v)
+_G.NoFog = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if not game.Lighting:GetAttribute("FogStart") then game.Lighting:SetAttribute("FogStart", game.Lighting.FogStart) end
+if not game.Lighting:GetAttribute("FogEnd") then game.Lighting:SetAttribute("FogEnd", game.Lighting.FogEnd) end
+game.Lighting.FogStart = _G.NoFog and 0 or game.Lighting:GetAttribute("FogStart")
+game.Lighting.FogEnd = _G.NoFog and math.huge or game.Lighting:GetAttribute("FogEnd")
+local fog = game.Lighting:FindFirstChildOfClass("Atmosphere")
+if fog then
+if not fog:GetAttribute("Density") then fog:SetAttribute("Density", fog.Density) end
+fog.Density = _G.NoFog and 0 or fog:GetAttribute("Density")
+end
+end)
+end})
+Lighting:AddToggle("Fullbright",{
+Text = "Auto Ambient",
+Default = false,
+Callback = function(v)
+_G.Fullbright = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Fullbright then
+game.Lighting.OutdoorAmbient = Color3.fromRGB(255,255,255)
+game.Lighting.Brightness = 1.5
+game.Lighting.GlobalShadows = false
+else
+game.Lighting.OutdoorAmbient = Color3.fromRGB(55,55,55)
+game.Lighting.Brightness = 1.5
+game.Lighting.GlobalShadows = true
+end
+end)
+end})
+
 local ESP = Tabs.ESP:AddLeftGroupbox('ESP')
 
 ESP:AddToggle("KE",{
