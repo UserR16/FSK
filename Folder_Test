@@ -310,26 +310,18 @@ Callback = function(v)
 _G.AutoPizza = v
 end})
 Misc:AddDivider()
-Misc:AddSlider('Field Of View', {
-Text = 'Field Of View',
-Default = 70,
-Min = 70,
-Max = 120,
-Rounding = 1,
-Compact = false,
-Tooltip = "This is slider field of view.",
-Callback = function(v)
-_G.FOV = v
-end})
+local fn = game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value
 Misc:AddToggle("Enabled FOV",{
-Text = "FOV",
+Text = "Max Field Of View",
 Default = false,
 Tooltip = "Get field of view.",
 Callback = function(v)
-_G.FieldOfView = v
-RunService.Stepped:Connect(function()
-if _G.FieldOfView then
-workspace.Camera.FieldOfView = _G.FOV
+_G.MaxFieldOfView = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.MaxFieldOfView then
+game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value = 1.5
+else
+game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value = fn
 end
 end)
 end})
@@ -550,6 +542,7 @@ Callback = function(v)
 ScreenGui.Enabled = v
 end})
 local Auto = Tabs.Auto:AddLeftGroupbox("Aimbot")
+local Camera = workspace.CurrentCamera
 Auto:AddToggle("Aimbot Guest Charge",{
 Text = "Aimbot Guest Charge",
 Default = false,
@@ -561,7 +554,7 @@ local Killers = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
 if Character and Killers and Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(Killers.HumanoidRootPart.Position.X, Killers.HumanoidRootPart.Position.Y, Killers.HumanoidRootPart.Position.Z))
-workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.Position, Killers.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(Camera.CFrame.Positon, Killers.HumanoidRootPart.Position)
 end
 end)
 else
@@ -712,7 +705,7 @@ WalkSpeedAimbot = game:GetService("RunService").RenderStepped:Connect(function()
 Char = game.Players.LocalPlayer.Character
 if not Char or not Char:FindFirstChild("HumanoidRootPart") then return end
 Target, Dist = nil, 9999
-for _, v in ipairs(workspace.Players.Survivors:GetChildren()) do
+for _, v in ipairs(Survivors:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") then
 Mag = (Char.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
 if Mag < Dist then Dist = Mag; Target = v end
@@ -720,7 +713,7 @@ end
 end
 if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://121369993837377") then
 Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
-workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, Target.HumanoidRootPart.Position)
 end
 end)
 else
@@ -737,7 +730,7 @@ VoidRushAimbot = game:GetService("RunService").RenderStepped:Connect(function()
 Char = game.Players.LocalPlayer.Character
 if not Char or not Char:FindFirstChild("HumanoidRootPart") then return end
 Target, Dist = nil, 9999
-for _, v in ipairs(workspace.Players.Survivors:GetChildren()) do
+for _, v in ipairs(Survivors:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") then
 Mag = (Char.HumanoidRootPart.Position - v.HumanoidRootPart.Position).Magnitude
 if Mag < Dist then Dist = Mag; Target = v end
@@ -745,7 +738,7 @@ end
 end
 if Target and Char.HumanoidRootPart:FindFirstChild("rbxassetid://107347032614322") then
 Char.HumanoidRootPart.CFrame = CFrame.lookAt(Char.HumanoidRootPart.Position, Target.HumanoidRootPart.Position)
-workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.Position, Target.HumanoidRootPart.Position)
+workspace.Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, Target.HumanoidRootPart.Position)
 end
 end)
 else
