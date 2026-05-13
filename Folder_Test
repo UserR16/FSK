@@ -270,8 +270,8 @@ end})
 local Misc = Tabs.Visual:AddRightGroupbox("Misc")
 local StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
 local fn = game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value
-local Character = game:GetService("Players").LocalPlayer.Character
 game:GetService("RunService").RenderStepped:Connect(function()
+local Character = game:GetService("Players").LocalPlayer.Character
 local KillerModel = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Sword = Character:FindFirstChild("Sword")
 if _G.AutoPizza then
