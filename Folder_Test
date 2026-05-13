@@ -325,7 +325,7 @@ end
 if _G.PunchAimbot and Character and KillerModel and Character.HumanoidRootPart:FindFirstChild("rbxassetid://609342351") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, KillerModel.HumanoidRootPart.Position.Y, KillerModel.HumanoidRootPart.Position.Z))
 end
-if _G.ChanceAimbot and Character and KillerModel and Character.HumanoidRootPart:FindFirstChild("rbxassetid://139012439429121") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://80521472651047") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://2920960") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://74027282199279") then
+if _G.ChanceAimbot and Character and KillerModel and (Character.HumanoidRootPart:FindFirstChild("rbxassetid://139012439429121") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://80521472651047") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://2920960") or Character.HumanoidRootPart:FindFirstChild("rbxassetid://74027282199279")) then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, KillerModel.HumanoidRootPart.Position.Y, KillerModel.HumanoidRootPart.Position.Z))
 end
 if Sword and Character and KillerModel then
