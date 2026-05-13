@@ -270,10 +270,10 @@ end})
 local Misc = Tabs.Visual:AddRightGroupbox("Misc")
 local StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
 local fn = game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value
-local KillerModel = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
-local Sword = Character:FindFirstChild("Sword")
 game:GetService("RunService").RenderStepped:Connect(function()
+local KillerModel = workspace.Players.Killers:FindFirstChildOfClass("Model")
+local Sword = Character:FindFirstChild("Sword")
 if _G.AutoPizza then
 for _,v in ipairs(Ingame:GetChildren()) do
 if v.Name == "Pizza" and v and v.Parent then
