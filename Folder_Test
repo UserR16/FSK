@@ -268,6 +268,8 @@ end
 end
 end})
 local Misc = Tabs.Visual:AddRightGroupbox("Misc")
+local StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
+local fn = game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value
 local KillerModel = workspace.Players.Killers:FindFirstChildOfClass("Model")
 local Character = game:GetService("Players").LocalPlayer.Character
 local Sword = Character:FindFirstChild("Sword")
@@ -390,7 +392,6 @@ Callback = function(v)
 _G.AutoPizza = v
 end})
 Misc:AddDivider()
-local fn = game.Players.LocalPlayer.Character.FOVMultipliers.FOVSetting.Value
 Misc:AddToggle("Enabled FOV",{
 Text = "Max Field Of View",
 Default = false,
@@ -424,7 +425,6 @@ Callback = function(v)
 _G.Tpwalk = v
 game:GetService("RunService").RenderStepped:Connect(tpwalk)
 end})
-local StaminaScript = require(game:GetService("ReplicatedStorage").Systems.Character.Game.Sprinting)
 Players:AddLabel("-- Survivor --")
 Players:AddSlider('Max Stamina', {
 Text = 'Max Stamina',
