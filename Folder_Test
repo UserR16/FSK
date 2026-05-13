@@ -319,8 +319,8 @@ end
 end
 end
 if _G.ChargeAimbot and Character and KillerModel and Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192") then
-game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, Model.HumanoidRootPart.Position.Y, Model.HumanoidRootPart.Position.Z))
-workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.CFrame.Positon, KillerModel.HumanoidRootPart.Position)
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, KillerModel.HumanoidRootPart.Position.Y, KillerModel.HumanoidRootPart.Position.Z))
+workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.CFrame.Position, KillerModel.HumanoidRootPart.Position)
 end
 if _G.PunchAimbot and Character and KillerModel and Character.HumanoidRootPart:FindFirstChild("rbxassetid://609342351") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, KillerModel.HumanoidRootPart.Position.Y, KillerModel.HumanoidRootPart.Position.Z))
@@ -944,15 +944,15 @@ Default = false,
 Callback = function(v)
 if v then
 for _, v in ipairs(workspace:GetDescendants()) do
-if v:IsA("Model") and v.Name == "SubspaceTripmine" and v and v.Parent and not v:FindFirstChild("SubspaceTripmine_ESP") then
+if v:IsA("Model") and v.Name == "SubspaceTripmine" and v and v.Parent and not v:FindFirstChild("SSTM_ESP") then
 Text(v, v.Name, Color3.new(1,0,1), 14, "SSTM_ESP")
 Highlight(v, Color3.new(1,0,1), "SSTM_ESP")
 end
 end
 SubspaceTripmineESP = workspace.Map.Ingame.DescendantAdded:Connect(function(v)
 wait(1)
-if v:IsA("Model") and v.Name == "SubspaceTripmine" and v and v.Parent and not v:FindFirstChild("SubspaceTripmine_ESP") then
-Text(v, v.Name, Color3.new(1,0,1), 14, "SSTm_ESP")
+if v:IsA("Model") and v.Name == "SubspaceTripmine" and v and v.Parent and not v:FindFirstChild("SSTM_ESP") then
+Text(v, v.Name, Color3.new(1,0,1), 14, "SSTM_ESP")
 Highlight(v, Color3.new(1,0,1), "SSTM_ESP")
 end
 end)
