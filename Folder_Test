@@ -14,7 +14,7 @@ TextLabel.AnchorPoint = Vector2.new(0.5,0.5)
 TextLabel.BackgroundTransparency = 1
 TextLabel.BackgroundColor3 = Color3.new(0,0,0)
 TextLabel.TextColor3 = color
-TextLabel.Font = "SourceSans"
+TextLabel.Font = "SourceSansBold"
 TextLabel.TextSize = fontsize
 TextLabel.TextTransparency = 0
 TextLabel.Visible = true
@@ -319,8 +319,9 @@ end
 end
 end
 if _G.ChargeAimbot and Character and KillerModel and Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192") then
-game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, KillerModel.HumanoidRootPart.Position.Y, KillerModel.HumanoidRootPart.Position.Z))
 workspace.Camera.CFrame = CFrame.lookAt(workspace.Camera.CFrame.Position, KillerModel.HumanoidRootPart.Position)
+wait(1)
+Character.HumanoidRootPart:FindFirstChild("rbxassetid://126814334954192"):Destroy()
 end
 if _G.PunchAimbot and Character and KillerModel and Character.HumanoidRootPart:FindFirstChild("rbxassetid://609342351") then
 game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position, Vector3.new(KillerModel.HumanoidRootPart.Position.X, KillerModel.HumanoidRootPart.Position.Y, KillerModel.HumanoidRootPart.Position.Z))
